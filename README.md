@@ -25,3 +25,10 @@ SV_data를 0000으로 바꿔 입력해도 결과는 동일했다.
 oasys로 합성한 전체 회로도와 면적 결과이다. 설계한 의도대로 각 모듈끼리 input 및 output 신호의 연결이 잘 되어 있는 것을 볼 수 있고 면적의 경우 표로 다시 정리하면 다음과 같다
 ![image](https://github.com/user-attachments/assets/b642432b-cfe7-4513-ab20-3a34329679e7)
 각 모듈의 면적은 1mm 제한의 조건을 충족하고 전체 면적의 경우 계산하면 0.047739mm이다.
+
+## 결론
+ 프로젝트를 수행한 결과, 같은 이동통신망에서 기지국 사이에서 발생하는 handover를 Server, BaseStation, DMUX, Mobile Device 등 여러 시스템이 서로 데이터를 주고받으며 협업되도록 설계할 수 있었다. Server의 경우 BaseStation1, 2, 3과 데이터 및 타겟 신호를 주고받는다.
+BaseStation의 경우 다른 BaseStation과 타겟 신호를 주고받고, DMUX와 signal quality, request 및 respond, 데이터를 주고받으며, Server와 데이터 및 타겟 신호를 주고받는다.
+DMUX는 Mobile Device와 타겟, signal quality, 데이터, 그리고 비교 신호를 주고받고 BaseStation과 signal quality, request 및 respond, 데이터를 주고받는다.
+Mobile Device는 DMUX와 타겟, signal quality, 데이터, 그리고 비교 신호를 주고받는다.
+또한 아쉬운 점으로는 Concurret Assertion을 사용하지 못했던 점이다. 프로젝트 목표 중 “스마트한 테스트(다양한 패턴 및 assertion)활용을 보여줘야 한다”를 충족하기 위해 Immediate Assertion을 사용하긴 했지만 이번 주제와는 어울리지 않았다. 처음에 SV_data를 입력하고 몇 clk 뒤에 final_data로 그 값이 제대로 나오는 것을 검증해야 했지만, Immediate Assertion으로는 스마트한 테스트가 되지 못했던 것 같다.
